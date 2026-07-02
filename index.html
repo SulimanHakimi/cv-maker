@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProCV — Professional CV Maker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@400;600;700&family=Merriweather:wght@400;700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="logo">Pro<span>CV</span></div>
+      <span class="save-status" id="saveStatus">All changes saved</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" id="btnSample">Load sample</button>
+      <button class="btn btn-ghost" id="btnImport">Import</button>
+      <input type="file" id="importFile" accept=".json" hidden />
+      <button class="btn btn-ghost" id="btnExport">Export JSON</button>
+      <button class="btn btn-danger-ghost" id="btnClear">Clear</button>
+      <button class="btn btn-primary" id="btnPrint">⬇ Download PDF</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <!-- ============ EDITOR PANEL ============ -->
+    <aside class="editor" id="editor">
+
+      <!-- Design settings -->
+      <section class="panel" data-panel="design">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">🎨</span>
+          <span class="panel-title">Design</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <label class="field-label">Template</label>
+          <div class="template-grid" id="templatePicker">
+            <button class="template-card" data-template="modern">
+              <span class="tpl-thumb tpl-modern"></span>Modern
+            </button>
+            <button class="template-card" data-template="classic">
+              <span class="tpl-thumb tpl-classic"></span>Classic
+            </button>
+            <button class="template-card" data-template="minimal">
+              <span class="tpl-thumb tpl-minimal"></span>Minimal
+            </button>
+            <button class="template-card" data-template="split">
+              <span class="tpl-thumb tpl-split"></span>Executive
+            </button>
+          </div>
+
+          <label class="field-label">Accent color</label>
+          <div class="swatch-row" id="accentPicker">
+            <button class="swatch" data-color="#0f766e" style="background:#0f766e"></button>
+            <button class="swatch" data-color="#1d4ed8" style="background:#1d4ed8"></button>
+            <button class="swatch" data-color="#7c3aed" style="background:#7c3aed"></button>
+            <button class="swatch" data-color="#be123c" style="background:#be123c"></button>
+            <button class="swatch" data-color="#b45309" style="background:#b45309"></button>
+            <button class="swatch" data-color="#1f2937" style="background:#1f2937"></button>
+            <input type="color" id="accentCustom" title="Custom color" />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label">Font</label>
+              <select id="fontSelect">
+                <option value="inter">Inter (sans)</option>
+                <option value="source">Source Sans (sans)</option>
+                <option value="poppins">Poppins (sans)</option>
+                <option value="lora">Lora (serif)</option>
+                <option value="merriweather">Merriweather (serif)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label">Text size</label>
+              <select id="sizeSelect">
+                <option value="compact">Compact</option>
+                <option value="normal" selected>Normal</option>
+                <option value="relaxed">Relaxed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Personal -->
+      <section class="panel open" data-panel="personal">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">👤</span>
+          <span class="panel-title">Personal details</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <div class="photo-row">
+            <div class="photo-preview" id="photoPreview"><span>Photo</span></div>
+            <div class="photo-actions">
+              <label class="btn btn-small btn-ghost" for="photoInput">Upload photo</label>
+              <input type="file" id="photoInput" accept="image/*" hidden />
+              <button class="btn btn-small btn-danger-ghost" id="photoRemove">Remove</button>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label class="field-label">Full name</label>
+              <input type="text" data-bind="personal.name" placeholder="Jane Doe" /></div>
+            <div class="field"><label class="field-label">Job title</label>
+              <input type="text" data-bind="personal.title" placeholder="Senior Product Designer" /></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label class="field-label">Email</label>
+              <input type="email" data-bind="personal.email" placeholder="jane@example.com" /></div>
+            <div class="field"><label class="field-label">Phone</label>
+              <input type="tel" data-bind="personal.phone" placeholder="+1 555 123 4567" /></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label class="field-label">Location</label>
+              <input type="text" data-bind="personal.location" placeholder="Berlin, Germany" /></div>
+            <div class="field"><label class="field-label">Website</label>
+              <input type="text" data-bind="personal.website" placeholder="janedoe.com" /></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label class="field-label">LinkedIn</label>
+              <input type="text" data-bind="personal.linkedin" placeholder="linkedin.com/in/janedoe" /></div>
+            <div class="field"><label class="field-label">GitHub / Other</label>
+              <input type="text" data-bind="personal.github" placeholder="github.com/janedoe" /></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Summary -->
+      <section class="panel" data-panel="summary">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">📝</span>
+          <span class="panel-title">Professional summary</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <textarea rows="5" data-bind="summary"
+            placeholder="Two to four sentences describing your experience, strengths, and what you bring to a team."></textarea>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section class="panel" data-panel="experience">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">💼</span>
+          <span class="panel-title">Work experience</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <div class="items" id="experienceList"></div>
+          <button class="btn btn-add" data-add="experience">+ Add position</button>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="panel" data-panel="education">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">🎓</span>
+          <span class="panel-title">Education</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <div class="items" id="educationList"></div>
+          <button class="btn btn-add" data-add="education">+ Add education</button>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="panel" data-panel="skills">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">⚡</span>
+          <span class="panel-title">Skills</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <div class="items" id="skillsList"></div>
+          <button class="btn btn-add" data-add="skills">+ Add skill</button>
+        </div>
+      </section>
+
+      <!-- Languages -->
+      <section class="panel" data-panel="languages">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">🌐</span>
+          <span class="panel-title">Languages</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <div class="items" id="languagesList"></div>
+          <button class="btn btn-add" data-add="languages">+ Add language</button>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="panel" data-panel="projects">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">🚀</span>
+          <span class="panel-title">Projects</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <div class="items" id="projectsList"></div>
+          <button class="btn btn-add" data-add="projects">+ Add project</button>
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section class="panel" data-panel="certifications">
+        <button class="panel-head" data-toggle>
+          <span class="panel-icon">🏅</span>
+          <span class="panel-title">Certifications</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="panel-body">
+          <div class="items" id="certificationsList"></div>
+          <button class="btn btn-add" data-add="certifications">+ Add certification</button>
+        </div>
+      </section>
+    </aside>
+
+    <!-- ============ PREVIEW ============ -->
+    <section class="preview-area">
+      <div class="preview-toolbar">
+        <div class="zoom-controls">
+          <button class="btn btn-small btn-ghost" id="zoomOut">−</button>
+          <span id="zoomLabel">100%</span>
+          <button class="btn btn-small btn-ghost" id="zoomIn">+</button>
+          <button class="btn btn-small btn-ghost" id="zoomFit">Fit</button>
+        </div>
+      </div>
+      <div class="preview-scroll" id="previewScroll">
+        <div class="page-wrap" id="pageWrap">
+          <div class="cv-page" id="cvPage"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
